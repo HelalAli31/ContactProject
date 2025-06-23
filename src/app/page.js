@@ -87,7 +87,7 @@ export default function Home() {
           onClose={() => setShowEditModal(false)}
         />
 
-        <div className="bg-white shadow-lg rounded-2xl p-6 mt-6">
+        <div className="bg-white shadow-lg rounded-2xl p-6 mt-6" dir="rtl">
           <label className="block text-lg font-semibold text-gray-700 mb-2">
             בחר פרויקט:
           </label>
