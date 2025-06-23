@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import PickContacts from "@/components/PickContacts";
 import PickedTable from "@/components/PickedTable";
 import AddContactModal from "@/components/AddContactModal";
+import NewProjectModal from "@/components/NewProjectModal";
 
 export default function Home() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
   const [showAddModal, setShowAddModal] = useState(false);
-
+  const [showProjectModal, setShowProjectModal] = useState(false);
   useEffect(() => {
     fetch("/api/projects")
       .then((res) => res.json())
@@ -21,12 +22,6 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 text-gray-800 p-6 font-sans">
       <div className="max-w-5xl mx-auto bg-white shadow-xl rounded-2xl p-8">
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="mb-4 px-4 py-2 bg-green-600 text-white rounded"
-        >
-          ➕ Add New Contact
-        </button>
         <AddContactModal
           isOpen={showAddModal}
           onClose={() => setShowAddModal(false)}
@@ -35,6 +30,34 @@ export default function Home() {
             alert("Contact added successfully");
           }}
         />
+        <div className="flex gap-4 mb-4">
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="px-4 py-2 bg-green-600 text-white rounded"
+          >
+            ➕ Add New Contact
+          </button>
+
+          <button
+            onClick={() => setShowProjectModal(true)}
+            className="px-4 py-2 bg-purple-600 text-white rounded"
+          >
+            📁 New Project
+          </button>
+        </div>
+
+        <NewProjectModal
+          isOpen={showProjectModal}
+          onClose={() => setShowProjectModal(false)}
+          onSuccess={() => {
+            setShowProjectModal(false);
+            // Refresh the projects list
+            fetch("/api/projects")
+              .then((res) => res.json())
+              .then(setProjects);
+          }}
+        />
+
         <h1 className="text-4xl font-extrabold text-blue-700 mb-6 tracking-tight">
           📁 Contact Projects Manager
         </h1>
