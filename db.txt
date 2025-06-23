@@ -1,0 +1,51 @@
+CREATE TABLE `contactsproject`.`subjects` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+
+
+CREATE TABLE `contactsproject`.`places` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `idplaces_UNIQUE` (`id` ASC) VISIBLE);
+
+
+ALTER TABLE `contactsproject`.`contacts` 
+ADD COLUMN `placeId` INT NOT NULL AFTER `address`,
+ADD COLUMN `subjectId` INT NOT NULL AFTER `placeId`,
+ADD INDEX `placeId_idx` (`placeId` ASC) VISIBLE,
+ADD INDEX `subjectId_idx` (`subjectId` ASC) VISIBLE;
+;
+ALTER TABLE `contactsproject`.`contacts` 
+ADD CONSTRAINT `placeId`
+  FOREIGN KEY (`placeId`)
+  REFERENCES `contactsproject`.`places` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `subjectId`
+  FOREIGN KEY (`subjectId`)
+  REFERENCES `contactsproject`.`subjects` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+CREATE TABLE `contactsproject`.`pickedcontacts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `contactId` INT NOT NULL,
+  `subjectId` INT NOT NULL,
+  `placeId` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+ALTER TABLE `contactsproject`.`pickedcontacts` 
+DROP COLUMN `placeId`,
+DROP COLUMN `subjectId`,
+ADD INDEX `contactId_idx` (`contactId` ASC) VISIBLE;
+;
+ALTER TABLE `contactsproject`.`pickedcontacts` 
+ADD CONSTRAINT `contactId`
+  FOREIGN KEY (`contactId`)
+  REFERENCES `contactsproject`.`contacts` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
