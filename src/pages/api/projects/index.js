@@ -11,9 +11,12 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const { name } = req.body;
+    if (!name) return res.status(400).json({ error: "Name is required" });
+
     const newProject = await Project.create({ name });
     return res.status(201).json(newProject);
   }
 
-  res.status(405).end();
+  res.setHeader("Allow", ["GET", "POST"]);
+  res.status(405).end(`Method ${req.method} Not Allowed`);
 }

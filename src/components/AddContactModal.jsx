@@ -68,54 +68,58 @@ export default function AddContactModal({ isOpen, onClose, onSuccess }) {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md">
-      <div className="bg-white border border-gray-200 rounded-xl shadow-xl p-6 space-y-4 relative">
-        {/* Close button */}
+    <div
+      className="fixed top-14 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md"
+      dir="rtl"
+    >
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-2xl p-6 space-y-5 relative font-sans">
+        {/* כפתור סגירה */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold"
+          className="absolute top-3 left-4 text-gray-500 hover:text-gray-700 text-xl font-bold"
         >
           &times;
         </button>
 
-        <h2 className="text-xl font-semibold text-blue-700 flex items-center gap-2">
-          ➕ Add New Contact
+        <h2 className="text-2xl font-bold text-blue-700 flex items-center gap-2">
+          ➕ הוסף איש קשר חדש
         </h2>
 
         <input
           type="text"
-          placeholder="Full Name"
+          placeholder="שם מלא"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
         />
         <input
           type="email"
-          placeholder="Email"
+          placeholder="אימייל"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        />
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
         />
         <input
           type="text"
-          placeholder="Address"
+          placeholder="מספר טלפון"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
+        />
+        <input
+          type="text"
+          placeholder="כתובת"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
         />
+
         <input
           list="subject-options"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-          placeholder="Select or enter subject"
-          className="w-full border px-3 py-2 rounded"
+          placeholder="בחר או כתוב נושא"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
         />
         <datalist id="subject-options">
           {subjects.map((s) => (
@@ -127,8 +131,8 @@ export default function AddContactModal({ isOpen, onClose, onSuccess }) {
           list="place-options"
           value={place}
           onChange={(e) => setPlace(e.target.value)}
-          placeholder="Select or enter place"
-          className="w-full border px-3 py-2 rounded"
+          placeholder="בחר או כתוב מקום"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg shadow-sm"
         />
         <datalist id="place-options">
           {places.map((p) => (
@@ -136,18 +140,18 @@ export default function AddContactModal({ isOpen, onClose, onSuccess }) {
           ))}
         </datalist>
 
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex justify-between gap-3 pt-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+            className="px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition"
           >
-            Cancel
+            ביטול
           </button>
           <button
             onClick={handleAdd}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
-            Save
+            שמור
           </button>
         </div>
       </div>
